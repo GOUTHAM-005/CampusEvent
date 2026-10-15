@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Campus Events</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container header-content">
+      <a href="index.html" class="logo">🎓 Campus Events</a>
+
+      <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="events.html">Events</a>
+        <a href="event-details.html">Eventdetails</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="register.html" class="active" aria-current="page">
+          Register
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="form-box">
+      <h1 class="page-title">Event Registration</h1>
+      <p>Fill out the form to register for an event.</p>
+
+      <form id="registration-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="full-name">Full Name *</label>
+            <input
+              type="text"
+              id="full-name"
+              name="fullName"
+              placeholder="Enter your full name"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="yourname@example.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Enter your phone number"
+              autocomplete="tel"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="department">Department *</label>
+            <select id="department" name="department" required>
+              <option value="">Select department</option>
+              <option>Computer Science</option>
+              <option>Information Technology</option>
+              <option>Electronics and Communication</option>
+              <option>Electrical and Electronics</option>
+              <option>Mechanical Engineering</option>
+              <option>Civil Engineering</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="event-select">Choose an Event *</label>
+            <select id="event-select" name="event" required>
+              <option value="">Select an event</option>
+              <option value="tech">Tech Fest 2026</option>
+              <option value="cultural">Cultural Day</option>
+              <option value="sports">Inter-College Sports Meet</option>
+              <option value="ai">AI Workshop</option>
+              <option value="photo">Photography Contest</option>
+              <option value="career">Career Guidance Talk</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="year">Year of Study *</label>
+            <select id="year" name="year" required>
+              <option value="">Select year</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+              <option>Postgraduate</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="notes">Message (Optional)</label>
+            <textarea
+              id="notes"
+              name="notes"
+              placeholder="Any additional information..."
+            ></textarea>
+          </div>
+        </div>
+
+        <label class="checkbox-label">
+          <input type="checkbox" name="terms" required>
+          <span>
+            I agree to the event participation terms and conditions.
+          </span>
+        </label>
+
+        <button type="submit" class="btn submit-btn">
+          Register →
+        </button>
+
+        <p
+          id="registration-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <h3>🎓 Campus Events</h3>
+        <p>
+          Bringing students together through exciting events
+          and unforgettable experiences.
+        </p>
+      </div>
+
+      <div>
+        <h3>Quick Links</h3>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="events.html">Events</a>
+        <a href="event-details.html">Eventdetails</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="register.html">Register</a>
+      </div>
+
+      <div>
+        <h3>Follow Us</h3>
+        <div class="social-icons" aria-label="Social media placeholders">
+          <span>f</span>
+          <span>◎</span>
+          <span>in</span>
+          <span>▶</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      © 2026 Campus Events. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const eventSelect = document.getElementById("event-select");
+
+    const selectedEvent =
+      new URLSearchParams(window.location.search).get("event");
+
+    const validEvent = Array.from(eventSelect.options).some(
+      option => option.value === selectedEvent
+    );
+
+    if (validEvent) {
+      eventSelect.value = selectedEvent;
+    }
+
+    document.getElementById("registration-form")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (!this.reportValidity()) {
+          return;
+        }
+
+        const name = document.getElementById("full-name").value.trim();
+
+        const eventName =
+          eventSelect.options[eventSelect.selectedIndex].text;
+
+        const message =
+          document.getElementById("registration-message");
+
+        message.textContent =
+          "Thank you, " + name + "! Your demo registration for " +
+          eventName + " is complete. " +
+          "This demonstration has not sent or saved your information.";
+
+        message.hidden = false;
+        this.reset();
+      });
+  </script>
+</body>
+</html>
